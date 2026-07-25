@@ -1,0 +1,91 @@
+:root {
+  --forest: #2D5016;
+  --cream: #F7F3E8;
+  --terracotta: #C37A67;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  background-color: var(--cream);
+  color: var(--forest);
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: var(--forest);
+  color: var(--cream);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+.tagline {
+  font-style: italic;
+  margin: 10px 0 30px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--terracotta);
+  color: var(--cream);
+  padding: 14px 32px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.story {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 60px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.product-card h3 {
+  margin: 15px 0 5px;
+}
+
+.product-card .price {
+  color: var(--terracotta);
+  font-weight: bold;
+  margin-bottom: 15px;
+}

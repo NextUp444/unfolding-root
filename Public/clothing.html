@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - Unfolding Root</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Unfolding Root</h1>
+    <p class="tagline">The Collection</p>
+  </header>
+
+  <section class="products">
+    <div class="product-card">
+      <img src="https://via.placeholder.com/400x500/2D5016/F7F3E8?text=Growth+From+Scratch+Tee" alt="Growth From Scratch Tee" />
+      <h3>Growth From Scratch Tee</h3>
+      <p class="price">$42</p>
+      <button class="btn" onclick="buyProduct('growth-tee')">Buy Now</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/400x500/C37A67/F7F3E8?text=Low+and+Slow+Tee" alt="Low and Slow Tee" />
+      <h3>Low and Slow Tee</h3>
+      <p class="price">$38</p>
+      <button class="btn" onclick="buyProduct('lowslow-tee')">Buy Now</button>
+    </div>
+  </section>
+
+  <script>
+    async function buyProduct(productId) {
+      const res = await fetch('/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId })
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>
