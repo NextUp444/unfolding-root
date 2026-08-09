@@ -8,32 +8,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 const products = {
-  'growth-tee': { name: 'Growth From Scratch Tee', price: 4200 },
-  'lowslow-tee': { name: 'Low and Slow Tee', price: 3800 }
+  'growth-butter': { name: 'Growth From Scratch Tee — Butter', price: 4200 },
+  'growth-ivory': { name: 'Growth From Scratch Tee — Ivory', price: 4200 },
+  'growth-khaki': { name: 'Growth From Scratch Tee — Khaki', price: 4200 },
+  'lowslow-ivory': { name: 'Low and Slow Tee — Ivory', price: 3800 },
 };
 
 app.post('/create-checkout-session', async (req, res) => {
   try {
-    const { productId } = req.body;
-    const product = products[productId];
+    const { items } = req.body;
+    if (!items || !items.length) return res.status(400).json({ error: 'Cart is empty' });
 
-    if (!product) {
-      return res.status(400).json({ error: 'Invalid product' });
-    }
+    const line_items = items.map(({ id, qty }) => {
+      const product = products[id];
+      if (!product) throw new Error(`Invalid product: ${id}`);
+      return {
+        price_data: { currency: 'usd', product_data: { name: product.name }, unit_amount: product.price },
+        quantity: qty,
+      };
+    });
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: { name: product.name },
-          unit_amount: product.price,
-        },
-        quantity: 1,
-      }],
+      line_items,
       mode: 'payment',
       success_url: `${req.protocol}://${req.get('host')}/success.html`,
-      cancel_url: `${req.protocol}://${req.get('host')}/clothing.html`,
+      cancel_url: `${req.protocol}://${req.get('host')}/cart.html`,
     });
 
     res.json({ url: session.url });

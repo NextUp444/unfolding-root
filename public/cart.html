@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Unfolding Root</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="free-shipping-banner">Free shipping on everything</div>
+ <header class="site-header">
+  <a href="index.html" class="logo">
+    <img src="images/logo.png" alt="Unfolding Root — Growth from scratch" class="logo-img" />
+  </a>
+  <div class="header-right">
+    <input type="text" class="search-bar" placeholder="Search for products" />
+    <nav class="site-nav">
+      <a href="clothing.html">Shop</a>
+      <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+  </div>
+</header>
+
+  <section class="cart-page">
+    <h1>Your Cart</h1>
+    <div id="cartItems"></div>
+    <div class="cart-summary">
+      <p>Total: <span id="cartTotal">$0.00</span></p>
+      <button class="btn" onclick="checkoutCart()">Checkout</button>
+    </div>
+  </section>
+
+  <script src="products.js"></script>
+  <script src="cart.js"></script>
+  <script>
+    function renderCartPage() {
+      const cart = getCart();
+      const container = document.getElementById('cartItems');
+      const totalEl = document.getElementById('cartTotal');
+      if (!cart.length) { container.innerHTML = '<p>Your cart is empty.</p>'; totalEl.textContent = '$0.00'; return; }
+      container.innerHTML = cart.map(i => `
+        <div class="cart-item">
+          <img src="${i.image}" alt="${i.name}" />
+          <div class="cart-item-details">
+            <h3>${i.name}</h3>
+            <p>$${(i.price/100).toFixed(2)}</p>
+            <div class="qty-controls">
+              <button onclick="updateQty('${i.id}', ${i.qty - 1})">-</button>
+              <span>${i.qty}</span>
+              <button onclick="updateQty('${i.id}', ${i.qty + 1})">+</button>
+            </div>
+          </div>
+          <button class="remove-btn" onclick="removeFromCart('${i.id}')">Remove</button>
+        </div>`).join('');
+      totalEl.textContent = `$${(cart.reduce((s, i) => s + i.price * i.qty, 0)/100).toFixed(2)}`;
+    }
+    async function checkoutCart() {
+      const cart = getCart();
+      if (!cart.length) return;
+      const res = await fetch('/create-checkout-session', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: cart.map(i => ({ id: i.id, qty: i.qty })) }),
+      });
+      const data = await res.json();
+      data.url ? window.location.href = data.url : alert('Something went wrong. Please try again.');
+    }
+    document.addEventListener('DOMContentLoaded', renderCartPage);
+  </script>
+</body>
+</html>

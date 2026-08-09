@@ -8,18 +8,81 @@
 </head>
 <body>
 
-  <header class="hero">
-    <h1>Unfolding Root</h1>
-    <p class="tagline">Growth from scratch.</p>
-    <a href="clothing.html" class="btn">Shop the Collection</a>
-  </header>
+  <div class="free-shipping-banner">Free shipping on everything</div>
+ <header class="site-header">
+  <a href="index.html" class="logo">
+    <img src="images/logo.png" alt="Unfolding Root — Growth from scratch" class="logo-img" />
+  </a>
+  <div class="header-right">
+    <input type="text" class="search-bar" placeholder="Search for products" />
+    <nav class="site-nav">
+      <a href="clothing.html">Shop</a>
+      <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+  </div>
+</header>
 
-  <section class="story">
-    <p>
-      Unfolding Root started in the back of a kitchen — built the same way
-      everything worth having is built: from scratch, one shift at a time.
-    </p>
+  <section class="hero-banner" id="heroBanner">
+<div class="hero-side-left"></div>
+<div class="hero-side-right"></div>
+
+
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">New Collection</p>
+      <h1 class="hero-headline">Growth From Scratch</h1>
+      <p class="hero-subtext">Rooted in growth. Made for every season.</p>
+     <a href="social.html" class="btn hero-cta">Social</a>
+    </div>
   </section>
+
+  <section class="about-brand">
+  <div class="about-photo">
+    <img src="images/founder.jpg" alt="Guy Reid, Founder of Unfolding Root" />
+  </div>
+  <div class="about-text">
+    <p class="about-eyebrow">About the Brand</p>
+    <h2>Rooted in growth. Made for every season.</h2>
+    <p>This brand was born in the food business.</p>
+    <p>Ten years going from dishwasher to general manager taught me something I couldn't learn anywhere else — the best things in life are made from scratch. Patience. Intention. Adaptability.</p>
+    <p>Unfolding Root is for the ones still becoming. The hustlers. The healers. The service industry workers. The dreamers doing the work nobody sees.</p>
+    <p>Whether you're doing it big, resting, transforming, or just holding on. Growth is within reach.</p>
+    <p class="about-signoff"><strong>Stay rooted.</strong></p>
+    <p class="about-founder">— Guy Reid, Founder</p>
+   <form class="newsletter-form" id="newsletterForm">
+  <input type="email" name="email" placeholder="Enter your email" required />
+  <button type="submit" class="btn">Subscribe</button>
+</form>
+<p class="newsletter-message" id="newsletterMessage"></p>
+  </div>
+</section>
+
+<script>
+  const leftSlide = document.querySelector('.hero-side-left');
+  const rightSlide = document.querySelector('.hero-side-right');
+  const images = ['images/hero1.png', 'images/hero2.png', 'images/hero3.png', 'images/hero4.png'];
+  let index = 0;
+
+  function updateSlides() {
+    leftSlide.style.backgroundImage = `url('${images[index % images.length]}')`;
+    rightSlide.style.backgroundImage = `url('${images[(index + 2) % images.length]}')`;
+    index = (index + 1) % images.length;
+  }
+
+  updateSlides();
+  setInterval(updateSlides, 30000);
+</script>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+
+<script>
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('newsletterMessage').textContent = "Thanks for subscribing!";
+    this.reset();
+  });
+</script>
 
 </body>
 </html>

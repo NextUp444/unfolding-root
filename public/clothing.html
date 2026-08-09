@@ -8,42 +8,49 @@
 </head>
 <body>
 
-  <header class="hero">
-    <h1>Unfolding Root</h1>
-    <p class="tagline">The Collection</p>
-  </header>
+ <div class="free-shipping-banner">Free shipping on everything</div>
+<header class="site-header">
+  <a href="index.html" class="logo">
+    <img src="images/logo.png" alt="Unfolding Root — Growth from scratch" class="logo-img" />
+  </a>
+  <div class="header-right">
+    <input type="text" class="search-bar" placeholder="Search for products" />
+    <nav class="site-nav">
+      <a href="clothing.html">Shop</a>
+      <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+  </div>
+</header>
 
   <section class="products">
-    <div class="product-card">
-      <img src="https://via.placeholder.com/400x500/2D5016/F7F3E8?text=Growth+From+Scratch+Tee" alt="Growth From Scratch Tee" />
-      <h3>Growth From Scratch Tee</h3>
-      <p class="price">$42</p>
-      <button class="btn" onclick="buyProduct('growth-tee')">Buy Now</button>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/400x500/C37A67/F7F3E8?text=Low+and+Slow+Tee" alt="Low and Slow Tee" />
-      <h3>Low and Slow Tee</h3>
-      <p class="price">$38</p>
-      <button class="btn" onclick="buyProduct('lowslow-tee')">Buy Now</button>
-    </div>
-  </section>
-
-  <script>
-    async function buyProduct(productId) {
-      const res = await fetch('/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId })
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert('Something went wrong. Please try again.');
-      }
-    }
-  </script>
+  <div class="product-card">
+    <img src="images/growth-butter.jpg" alt="Growth From Scratch Tee — Butter" />
+    <h3>Growth From Scratch Tee — Butter</h3>
+    <p class="price">$42</p>
+    <button class="btn" onclick="addToCart('growth-butter')">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/growth-ivory.jpg" alt="Growth From Scratch Tee — Ivory" />
+    <h3>Growth From Scratch Tee — Ivory</h3>
+    <p class="price">$42</p>
+    <button class="btn" onclick="addToCart('growth-ivory')">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/growth-khaki.jpg" alt="Growth From Scratch Tee — Khaki" />
+    <h3>Growth From Scratch Tee — Khaki</h3>
+    <p class="price">$42</p>
+    <button class="btn" onclick="addToCart('growth-khaki')">Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="images/lowslow-ivory.jpg" alt="Low and Slow Tee — Ivory" />
+    <h3>Low and Slow Tee — Ivory</h3>
+    <p class="price">$38</p>
+    <button class="btn" onclick="addToCart('lowslow-ivory')">Add to Cart</button>
+  </div>
+</section>
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<BuyProduct></BuyProduct>
 
 </body>
 </html>
