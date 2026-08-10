@@ -347,3 +347,53 @@ social-page {
 .instagram-media {
   max-width: 325px !important;
 }
+
+@media (max-width: 768px) {
+  .site-header {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .logo-img {
+    height: 60px;
+  }
+
+  .hero-banner {
+    height: auto;
+    min-height: 500px;
+  }
+
+  .hero-side-left,
+  .hero-side-right {
+    position: static;
+    width: 100%;
+    height: 250px;
+    opacity: 1;
+  }
+
+  .hero-content {
+    width: 90%;
+    max-width: none;
+    position: static;
+    margin: 20px auto;
+  }
+
+  .about-brand {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  .about-photo {
+    max-width: 100%;
+  }
+
+  .video-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
