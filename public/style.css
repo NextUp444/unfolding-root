@@ -111,7 +111,7 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #ffffff;
+  background-color: #transparent;
   transition: opacity 0.8s ease-in-out;
 }
 
@@ -194,7 +194,7 @@ body {
 .hero-content {
   position: relative;
   z-index: 1; 
-  background: var(--cream);
+  background: rgba(247, 243, 232, 0.85);
   width: 20%;
   min-width: 280px;
   margin: 0 auto;
