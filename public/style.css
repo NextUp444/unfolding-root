@@ -111,7 +111,7 @@ body {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #transparent;
+  background-color: transparent;
   transition: opacity 0.8s ease-in-out;
 }
 
@@ -444,10 +444,36 @@ social-page {
   60% { stroke-dashoffset: 0; opacity: 0.2; }
   85% { opacity: 0; }
   100% { stroke-dashoffset: 200; opacity: 0; }
+}
 
   .hero-side-left,
 .hero-side-right,
 .hero-content {
   position: relative;
   z-index: 1;
+}
+
+.vine-path {
+  stroke-width: 3;
+}
+
+.vine-branch {
+  stroke-width: 2;
+}
+
+.vine-branch.small {
+  stroke-width: 1.5;
+}
+
+.vine-leaf {
+  fill: var(--forest);
+  opacity: 0;
+  animation: leafFade 8s ease-in-out infinite;
+}
+
+@keyframes leafFade {
+  0%, 45% { opacity: 0; }
+  55% { opacity: 0.3; }
+  80% { opacity: 0.3; }
+  100% { opacity: 0; }
 }
