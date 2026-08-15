@@ -239,7 +239,7 @@ body {
 .remove-btn { background: none; border: none; color: var(--terracotta); cursor: pointer; }
 .cart-summary { margin-top: 24px; display: flex; justify-content: space-between; align-items: center; }
 
-.logo-img { height: 200px; width: auto; display: block; }
+.logo-img { height: 400px; width: auto; display: block; }
 
 .site-header {
   display: flex;
