@@ -432,16 +432,16 @@ social-page {
 
 @keyframes growVine {
   0% { stroke-dashoffset: 600; opacity: 0; }
-  30% { opacity: 0.25; }
-  55% { stroke-dashoffset: 0; opacity: 0.25; }
+  30% { opacity: 0.5; }
+  55% { stroke-dashoffset: 0; opacity: 0.5; }
   80% { opacity: 0; }
   100% { stroke-dashoffset: 600; opacity: 0; }
 }
 
 @keyframes growBranch {
   0%, 20% { stroke-dashoffset: 200; opacity: 0; }
-  40% { opacity: 0.2; }
-  60% { stroke-dashoffset: 0; opacity: 0.2; }
+  40% { opacity: 0.4; }
+  60% { stroke-dashoffset: 0; opacity: 0.4; }
   85% { opacity: 0; }
   100% { stroke-dashoffset: 200; opacity: 0; }
 }
@@ -457,15 +457,15 @@ z-index: 1;
 }
 
 .vine-path {
-  stroke-width: 3;
+  stroke-width: 4;
 }
 
 .vine-branch {
-  stroke-width: 2;
+  stroke-width: 2.5;
 }
 
 .vine-branch.small {
-  stroke-width: 1.5;
+  stroke-width: 2;
 }
 
 .vine-leaf {
@@ -479,4 +479,8 @@ z-index: 1;
   55% { opacity: 0.3; }
   80% { opacity: 0.3; }
   100% { opacity: 0; }
+}
+
+.vine-path-2 {
+  animation-delay: 4s;
 }
