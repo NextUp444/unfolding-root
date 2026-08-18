@@ -502,3 +502,33 @@ z-index: 1;
   color: var(--forest);
   white-space: nowrap;
 }
+
+.site-footer {
+  background: var(--forest);
+  color: var(--cream);
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.footer-social a {
+  text-decoration: none;
+  filter: grayscale(1) brightness(2);
+  transition: filter 0.2s;
+}
+
+.footer-social a:hover {
+  filter: none;
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
