@@ -520,12 +520,11 @@ z-index: 1;
 
 .footer-social a {
   text-decoration: none;
-  filter: grayscale(1) brightness(2);
-  transition: filter 0.2s;
+  transition: transform 0.2s;
 }
 
 .footer-social a:hover {
-  filter: none;
+  transform: scale(1.15);
 }
 
 .footer-copy {
