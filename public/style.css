@@ -370,7 +370,7 @@ social-page {
 
   .hero-side-left,
   .hero-side-right {
-    position: static;
+    position: relative;
     width: 100%;
     height: 250px;
     opacity: 1;
