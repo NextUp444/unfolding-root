@@ -24,25 +24,25 @@
 
   <section class="products">
   <div class="product-card">
-    <img src="images/growth-butter.jpg" alt="Growth From Scratch Tee — Butter" />
+    <img src="images/growth-butter.jpg" alt="Growth From Scratch Tee — Butter" onclick="openModal('growth-butter')" style="cursor: pointer;" />
     <h3>Growth From Scratch Tee — Butter</h3>
     <p class="price">$42</p>
     <button class="btn" onclick="addToCart('growth-butter')">Add to Cart</button>
   </div>
   <div class="product-card">
-    <img src="images/growth-ivory.jpg" alt="Growth From Scratch Tee — Ivory" />
+    <img src="images/growth-ivory.jpg" alt="Growth From Scratch Tee — Ivory" onclick="openModal('growth-ivory')" style="cursor: pointer;" />
     <h3>Growth From Scratch Tee — Ivory</h3>
     <p class="price">$42</p>
     <button class="btn" onclick="addToCart('growth-ivory')">Add to Cart</button>
   </div>
   <div class="product-card">
-    <img src="images/growth-khaki.jpg" alt="Growth From Scratch Tee — Khaki" />
+    <img src="images/growth-khaki.jpg" alt="Growth From Scratch Tee — Khaki" onclick="openModal('growth-khaki')" style="cursor: pointer;" />
     <h3>Growth From Scratch Tee — Khaki</h3>
     <p class="price">$42</p>
     <button class="btn" onclick="addToCart('growth-khaki')">Add to Cart</button>
   </div>
   <div class="product-card">
-    <img src="images/lowslow-ivory.jpg" alt="Low and Slow Tee — Ivory" />
+    <img src="images/lowslow-ivory.jpg" alt="Low and Slow Tee — Ivory" onclick="openModal('lowslow-ivory')" style="cursor: pointer;" />
     <h3>Low and Slow Tee — Ivory</h3>
     <p class="price">$38</p>
     <button class="btn" onclick="addToCart('lowslow-ivory')">Add to Cart</button>
@@ -50,7 +50,77 @@
 </section>
 <script src="products.js"></script>
 <script src="cart.js"></script>
-<BuyProduct></BuyProduct>
+
+<script>
+  function openModal(productId) {
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product) return;
+
+    document.getElementById('modalName').textContent = product.name;
+    document.getElementById('modalPrice').textContent = '$' + (product.price / 100).toFixed(2);
+    document.getElementById('modalMainImage').src = product.images[0];
+    document.getElementById('modalMainImage').alt = product.name;
+
+    const thumbsContainer = document.getElementById('modalThumbs');
+    thumbsContainer.innerHTML = '';
+    product.images.forEach((imgSrc, i) => {
+      const thumb = document.createElement('img');
+      thumb.src = imgSrc;
+      thumb.className = 'modal-thumb';
+      thumb.onclick = () => { document.getElementById('modalMainImage').src = imgSrc; };
+      thumbsContainer.appendChild(thumb);
+    });
+
+    document.getElementById('modalQty').value = 1;
+    document.getElementById('modalSize').value = 'M';
+    document.getElementById('productModal').dataset.productId = productId;
+    document.getElementById('productModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('productModal').classList.remove('open');
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('productModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.getElementById('modalAddToCart').addEventListener('click', function() {
+    const productId = document.getElementById('productModal').dataset.productId;
+    const size = document.getElementById('modalSize').value;
+    const qty = parseInt(document.getElementById('modalQty').value, 10);
+    addToCart(productId, size, qty);
+    closeModal();
+  });
+</script>
+
+<div class="product-modal" id="productModal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-gallery">
+      <img id="modalMainImage" src="" alt="" />
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-details">
+      <h2 id="modalName"></h2>
+      <p class="modal-price" id="modalPrice"></p>
+      <label for="modalSize">Size</label>
+      <select id="modalSize">
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+        <option>2XL</option>
+        <option>3XL</option>
+        <option>4XL</option>
+      </select>
+      <label for="modalQty">Quantity</label>
+      <input type="number" id="modalQty" value="1" min="1" />
+      <button class="btn" id="modalAddToCart">Add to Cart</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
