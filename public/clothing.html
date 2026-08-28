@@ -51,6 +51,33 @@
 <script src="products.js"></script>
 <script src="cart.js"></script>
 
+<div class="product-modal" id="productModal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-gallery">
+      <img id="modalMainImage" src="" alt="" />
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-details">
+      <h2 id="modalName"></h2>
+      <p class="modal-price" id="modalPrice"></p>
+      <label for="modalSize">Size</label>
+      <select id="modalSize">
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+        <option>2XL</option>
+        <option>3XL</option>
+        <option>4XL</option>
+      </select>
+      <label for="modalQty">Quantity</label>
+      <input type="number" id="modalQty" value="1" min="1" />
+      <button class="btn" id="modalAddToCart">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
 <script>
   function openModal(productId) {
     const product = PRODUCTS.find(p => p.id === productId);
@@ -94,33 +121,6 @@
     closeModal();
   });
 </script>
-
-<div class="product-modal" id="productModal">
-  <div class="modal-content">
-    <button class="modal-close" id="modalClose">&times;</button>
-    <div class="modal-gallery">
-      <img id="modalMainImage" src="" alt="" />
-      <div class="modal-thumbs" id="modalThumbs"></div>
-    </div>
-    <div class="modal-details">
-      <h2 id="modalName"></h2>
-      <p class="modal-price" id="modalPrice"></p>
-      <label for="modalSize">Size</label>
-      <select id="modalSize">
-        <option>S</option>
-        <option>M</option>
-        <option>L</option>
-        <option>XL</option>
-        <option>2XL</option>
-        <option>3XL</option>
-        <option>4XL</option>
-      </select>
-      <label for="modalQty">Quantity</label>
-      <input type="number" id="modalQty" value="1" min="1" />
-      <button class="btn" id="modalAddToCart">Add to Cart</button>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
