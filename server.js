@@ -46,6 +46,21 @@ app.post('/create-checkout-session', async (req, res) => {
       };
     });
 
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      success_url: `${req.protocol}://${req.get('host')}/success.html`,
+      cancel_url: `${req.protocol}://${req.get('host')}/cart.html`,
+    });
+
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
 app.get('/api/reviews', (req, res) => {
   res.json(getReviews());
 });
@@ -67,21 +82,6 @@ app.post('/api/reviews', upload.single('media'), (req, res) => {
   reviews.unshift(newReview);
   saveReviews(reviews);
   res.json({ success: true, review: newReview });
-});
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items,
-      mode: 'payment',
-      success_url: `${req.protocol}://${req.get('host')}/success.html`,
-      cancel_url: `${req.protocol}://${req.get('host')}/cart.html`,
-    });
-
-    res.json({ url: session.url });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Something went wrong' });
-  }
 });
 
 const PORT = process.env.PORT || 3000;
