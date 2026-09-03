@@ -716,7 +716,10 @@ z-index: 1;
 
 .review-card {
   perspective: 1000px;
-  height: 320px;
+  height: 360px;
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto;
   cursor: pointer;
 }
 
@@ -738,8 +741,8 @@ z-index: 1;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 10px;
-  border: 3px solid var(--forest);
+  border-radius: 6px;
+  border: 4px solid;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -749,15 +752,24 @@ z-index: 1;
   background: var(--cream);
 }
 
+.review-card-tier-bar {
+  padding: 4px 0;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+}
+
 .review-card-media {
-  height: 65%;
+  height: 58%;
   width: 100%;
   object-fit: cover;
   background: var(--terracotta);
 }
 
 .review-card-avatar {
-  height: 65%;
+  height: 58%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -769,8 +781,12 @@ z-index: 1;
 }
 
 .review-card-info {
-  padding: 12px;
+  padding: 10px;
   text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .review-card-name {
@@ -793,3 +809,18 @@ z-index: 1;
   font-size: 0.95rem;
   overflow-y: auto;
 }
+
+.tier-platinum { border-color: #E5E4E2; box-shadow: 0 0 16px rgba(229,228,226,0.7); }
+.tier-platinum .review-card-tier-bar { background: #E5E4E2; }
+
+.tier-gold { border-color: #D4AF37; box-shadow: 0 0 16px rgba(212,175,55,0.6); }
+.tier-gold .review-card-tier-bar { background: #D4AF37; }
+
+.tier-silver { border-color: #C0C0C0; box-shadow: 0 0 12px rgba(192,192,192,0.5); }
+.tier-silver .review-card-tier-bar { background: #C0C0C0; }
+
+.tier-bronze { border-color: #CD7F32; box-shadow: 0 0 12px rgba(205,127,50,0.5); }
+.tier-bronze .review-card-tier-bar { background: #CD7F32; }
+
+.tier-wood { border-color: #8B5E3C; }
+.tier-wood .review-card-tier-bar { background: #8B5E3C; color: var(--cream); }
