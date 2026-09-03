@@ -99,6 +99,55 @@
 <script src="products.js"></script>
 <script src="cart.js"></script>
 
+<script>
+  async function loadReviews() {
+    try {
+      const res = await fetch('/api/reviews');
+      const reviews = await res.json();
+      const container = document.getElementById('reviewCards');
+      container.innerHTML = '';
+
+      const tiers = { 5: ['platinum', 'PLATINUM'], 4: ['gold', 'GOLD'], 3: ['silver', 'SILVER'], 2: ['bronze', 'BRONZE'], 1: ['wood', 'WOOD'] };
+
+      reviews.forEach(review => {
+        const [tierClass, tierLabel] = tiers[review.rating] || ['wood', 'WOOD'];
+        const card = document.createElement('div');
+        card.className = 'review-card tier-' + tierClass;
+        card.addEventListener('click', () => card.classList.toggle('flipped'));
+
+        const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+        const initial = review.name.charAt(0).toUpperCase();
+
+        const mediaHTML = review.media
+          ? (review.media.match(/\.(mp4|mov|webm)$/i)
+              ? `<video class="review-card-media" src="${review.media}" muted loop autoplay playsinline></video>`
+              : `<img class="review-card-media" src="${review.media}" alt="${review.name}" />`)
+          : `<div class="review-card-avatar">${initial}</div>`;
+
+        card.innerHTML = `
+          <div class="review-card-inner">
+            <div class="review-card-front">
+              <div class="review-card-tier-bar">${tierLabel}</div>
+              ${mediaHTML}
+              <div class="review-card-info">
+                <div class="review-card-name">${review.name}</div>
+                <div class="review-card-stars">${stars}</div>
+              </div>
+            </div>
+            <div class="review-card-back">
+              ${review.text}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Failed to load reviews', err);
+    }
+  }
+  loadReviews();
+</script>
+
 const tiers = { 5: ['platinum', 'PLATINUM'], 4: ['gold', 'GOLD'], 3: ['silver', 'SILVER'], 2: ['bronze', 'BRONZE'], 1: ['wood', 'WOOD'] };
 const [tierClass, tierLabel] = tiers[review.rating] || ['wood', 'WOOD'];
 card.className = 'review-card tier-' + tierClass;
