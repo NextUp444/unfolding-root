@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Share Your Review — Unfolding Root</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="free-shipping-banner">Free shipping on everything</div>
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="Unfolding Root — Growth from scratch" class="logo-img" />
+    </a>
+    <div class="header-right">
+      <nav class="site-nav">
+        <a href="clothing.html">Shop</a>
+        <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="review-form-section">
+    <h1>Share your story</h1>
+    <p class="review-form-subtext">Tell us what you loved. Add a photo or video if you've got one — your review might show up right on the site.</p>
+
+    <form id="reviewForm" class="review-form">
+      <label for="reviewName">Your name</label>
+      <input type="text" id="reviewName" name="name" required />
+
+      <label>Rating</label>
+      <div class="star-picker" id="starPicker">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+      <input type="hidden" id="reviewRating" name="rating" required />
+
+      <label for="reviewText">Your review</label>
+      <textarea id="reviewText" name="text" rows="5" required placeholder="What did you think? What did you like most?"></textarea>
+
+      <label for="reviewMedia">Photo or video (optional)</label>
+      <input type="file" id="reviewMedia" name="media" accept="image/*,video/*" />
+
+      <button type="submit" class="btn">Submit Review</button>
+      <p id="reviewMessage"></p>
+    </form>
+  </section>
+
+  <script>
+    let selectedRating = 0;
+    document.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.value, 10);
+        document.getElementById('reviewRating').value = selectedRating;
+        document.querySelectorAll('.star').forEach(s => {
+          s.classList.toggle('selected', parseInt(s.dataset.value, 10) <= selectedRating);
+        });
+      });
+    });
+
+    document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (!selectedRating) {
+        document.getElementById('reviewMessage').textContent = 'Please select a star rating.';
+        return;
+      }
+      const formData = new FormData(this);
+      try {
+        const res = await fetch('/api/reviews', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('reviewMessage').textContent = 'Thanks for your review!';
+          this.reset();
+          document.querySelectorAll('.star').forEach(s => s.classList.remove('selected'));
+          selectedRating = 0;
+        } else {
+          document.getElementById('reviewMessage').textContent = data.error || 'Something went wrong.';
+        }
+      } catch (err) {
+        document.getElementById('reviewMessage').textContent = 'Something went wrong.';
+      }
+    });
+  </script>
+</body>
+</html>
