@@ -683,3 +683,16 @@ z-index: 1;
   color: var(--terracotta);
   font-weight: 600;
 }
+
+.footer-review-link {
+  display: block;
+  color: var(--cream);
+  text-decoration: underline;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.footer-review-link:hover {
+  opacity: 1;
+}
