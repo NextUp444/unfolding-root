@@ -348,6 +348,14 @@ social-page {
   max-width: 325px !important;
 }
 
+.about-photo img {
+    max-width: 100%;
+    width: 280px;
+    
+    height: auto;
+    border-radius: 8px
+  }
+
 @media (max-width: 768px) {
   .site-header {
     flex-wrap: wrap;
@@ -389,10 +397,7 @@ social-page {
   }
 
   .about-photo img {
-    max-width: 100%;
-    width: 280px;
-    height: auto;
-    border-radius: 8px
+   width: 180px;
   }
 
   .video-row {
