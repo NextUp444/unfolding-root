@@ -388,8 +388,11 @@ social-page {
     padding: 40px 20px;
   }
 
-  .about-photo {
+  .about-photo img {
     max-width: 100%;
+    width: 280px;
+    height: auto;
+    border-radius: 8px
   }
 
   .video-row {
