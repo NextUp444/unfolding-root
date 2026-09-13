@@ -149,10 +149,26 @@
 </script>
 
 <script>
-  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+  document.getElementById('newsletterForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    document.getElementById('newsletterMessage').textContent = "Thanks for subscribing!";
-    this.reset();
+    const email = this.querySelector('input[name="email"]').value;
+    const messageEl = document.getElementById('newsletterMessage');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        messageEl.textContent = "Thanks for subscribing!";
+        this.reset();
+      } else {
+        messageEl.textContent = "Something went wrong. Please try again.";
+      }
+    } catch (err) {
+      messageEl.textContent = "Something went wrong. Please try again.";
+    }
   });
 </script>
 

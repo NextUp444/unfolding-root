@@ -5,6 +5,12 @@ const path = require('path');
 
 const multer = require('multer');
 const fs = require('fs');
+const mailchimp = require('@mailchimp/mailchimp_marketing');
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: 'us4', // matches the "us4" in your Mailchimp URL
+});
+
 fs.mkdirSync('public/images/reviews', { recursive: true});
 
 const app = express();
@@ -83,6 +89,21 @@ app.post('/api/reviews', upload.single('media'), (req, res) => {
   reviews.unshift(newReview);
   saveReviews(reviews);
   res.json({ success: true, review: newReview });
+});
+
+app.post('/api/subscribe', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email is required' });
+  try {
+    await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID, {
+      email_address: email,
+      status: 'subscribed',
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
